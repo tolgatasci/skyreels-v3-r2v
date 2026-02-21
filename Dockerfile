@@ -1,4 +1,4 @@
-FROM runpod/pytorch:2.2.0-py3.10-cuda12.1.1-devel-ubuntu22.04
+FROM runpod/pytorch:2.8.0-py3.11-cuda12.4.1-devel-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
@@ -10,12 +10,6 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     git wget curl ffmpeg \
     && rm -rf /var/lib/apt/lists/*
-
-# Upgrade PyTorch (need 2.7+ for torch.int1 required by torchao/diffusers)
-RUN pip install --no-cache-dir \
-    torch \
-    torchvision \
-    --index-url https://download.pytorch.org/whl/cu124
 
 # Skip flash-attn (source build takes 1h+), use PyTorch SDPA instead
 ENV ATTN_BACKEND=sdpa
