@@ -45,7 +45,8 @@ RUN pip install --no-cache-dir \
     omegaconf==2.3.0 \
     pyloudnorm \
     librosa \
-    moviepy==2.2.1
+    moviepy==2.2.1 \
+    av
 
 # Clone SkyReels-V3 repository
 RUN git clone https://github.com/SkyworkAI/SkyReels-V3.git /app/SkyReels-V3
