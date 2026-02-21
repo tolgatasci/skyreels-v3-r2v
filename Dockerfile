@@ -50,9 +50,6 @@ RUN pip install --no-cache-dir \
     librosa \
     moviepy==2.2.1
 
-# Verify diffusers loads correctly
-RUN python3 -c "from diffusers import DiffusionPipeline; print('diffusers OK')"
-
 # Clone SkyReels-V3 repository
 RUN git clone https://github.com/SkyworkAI/SkyReels-V3.git /app/SkyReels-V3
 
