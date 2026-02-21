@@ -11,24 +11,23 @@ RUN apt-get update && apt-get install -y \
     git wget curl ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-# Upgrade PyTorch to 2.6+ (need add_safe_globals + torch.int1)
+# Upgrade PyTorch to 2.8.0 (official SkyReels-V3 requirement)
 RUN pip install --no-cache-dir --upgrade \
-    "torch>=2.6.0" \
-    "torchvision>=0.21.0" \
+    torch==2.8.0 \
+    torchvision==0.23.0 \
     --index-url https://download.pytorch.org/whl/cu124
-
-# Verify torch version
-RUN python3 -c "import torch; print(f'PyTorch {torch.__version__}'); assert hasattr(torch.serialization, 'add_safe_globals'), 'add_safe_globals missing!'; print('add_safe_globals OK')"
 
 # Skip flash-attn (source build takes 1h+), use PyTorch SDPA instead
 ENV ATTN_BACKEND=sdpa
 
-# SkyReels-V3 core dependencies
+# SkyReels-V3 pinned dependencies (from official requirements.txt)
 RUN pip install --no-cache-dir \
     diffusers==0.34.0 \
     transformers==4.53.2 \
-    accelerate \
+    accelerate==1.8.1 \
     tokenizers==0.21.4 \
+    torchao==0.10.0 \
+    numpy==1.26.4 \
     safetensors \
     sentencepiece \
     protobuf \
@@ -36,16 +35,14 @@ RUN pip install --no-cache-dir \
     runpod \
     huggingface_hub \
     imageio \
-    imageio-ffmpeg \
-    "numpy>=1.23.5,<2" \
+    imageio-ffmpeg==0.5.1 \
     einops \
     easydict \
-    ftfy \
-    tqdm \
+    ftfy==6.3.1 \
+    tqdm==4.67.1 \
     opencv-python-headless \
     kornia \
-    omegaconf \
-    torchao \
+    omegaconf==2.3.0 \
     pyloudnorm \
     librosa \
     moviepy==2.2.1
