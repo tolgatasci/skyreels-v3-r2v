@@ -17,8 +17,8 @@ RUN pip install --no-cache-dir \
     torchvision \
     --index-url https://download.pytorch.org/whl/cu124
 
-# Build flash_attn from source
-RUN pip install --no-cache-dir flash-attn --no-build-isolation
+# Skip flash-attn (source build takes 1h+), use PyTorch SDPA instead
+ENV ATTN_BACKEND=sdpa
 
 # SkyReels-V3 core dependencies
 RUN pip install --no-cache-dir \
