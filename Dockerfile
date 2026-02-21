@@ -20,7 +20,7 @@ RUN pip install --no-cache-dir --upgrade \
 # Skip flash-attn (source build takes 1h+), use PyTorch SDPA instead
 ENV ATTN_BACKEND=sdpa
 
-# SkyReels-V3 pinned dependencies (from official requirements.txt)
+# ALL SkyReels-V3 dependencies (requirements.txt + source code imports)
 RUN pip install --no-cache-dir \
     diffusers==0.34.0 \
     transformers==4.53.2 \
@@ -46,7 +46,10 @@ RUN pip install --no-cache-dir \
     pyloudnorm \
     librosa \
     moviepy==2.2.1 \
-    av
+    av \
+    regex \
+    soundfile \
+    wget==3.2
 
 # Clone SkyReels-V3 repository
 RUN git clone https://github.com/SkyworkAI/SkyReels-V3.git /app/SkyReels-V3
