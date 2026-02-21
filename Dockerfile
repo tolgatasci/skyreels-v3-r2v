@@ -11,10 +11,10 @@ RUN apt-get update && apt-get install -y \
     git wget curl ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-# Upgrade PyTorch to 2.8.0 (official SkyReels-V3 requirement)
+# Upgrade PyTorch to 2.6.0 (latest on cu124, has add_safe_globals + torch.int1)
 RUN pip install --no-cache-dir --upgrade \
-    torch==2.8.0 \
-    torchvision==0.23.0 \
+    torch==2.6.0 \
+    torchvision==0.21.0 \
     --index-url https://download.pytorch.org/whl/cu124
 
 # Skip flash-attn (source build takes 1h+), use PyTorch SDPA instead
