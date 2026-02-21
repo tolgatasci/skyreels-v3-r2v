@@ -49,7 +49,9 @@ RUN pip install --no-cache-dir \
     av \
     regex \
     soundfile \
-    wget==3.2
+    wget==3.2 \
+    xfuser==0.4.3.post3 \
+    yunchang==0.6.3.post1
 
 # Clone SkyReels-V3 repository
 RUN git clone https://github.com/SkyworkAI/SkyReels-V3.git /app/SkyReels-V3
