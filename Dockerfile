@@ -11,13 +11,13 @@ RUN apt-get update && apt-get install -y \
     git wget curl ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-# Upgrade PyTorch (latest stable with CUDA 12.1)
+# Upgrade PyTorch (need 2.7+ for torch.int1 required by torchao/diffusers)
 RUN pip install --no-cache-dir \
-    torch==2.5.1 \
-    torchvision==0.20.1 \
-    --index-url https://download.pytorch.org/whl/cu121
+    torch \
+    torchvision \
+    --index-url https://download.pytorch.org/whl/cu124
 
-# Build flash_attn from source (matches torch + CUDA 12.1)
+# Build flash_attn from source
 RUN pip install --no-cache-dir flash-attn --no-build-isolation
 
 # SkyReels-V3 core dependencies
