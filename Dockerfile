@@ -11,15 +11,13 @@ RUN apt-get update && apt-get install -y \
     git wget curl ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-# Upgrade PyTorch to 2.8+ (SkyReels-V3 requirement)
-# NOTE: If cu121 build not available, change to:
-#   --index-url https://download.pytorch.org/whl/cu124
+# Upgrade PyTorch (latest stable with CUDA 12.1)
 RUN pip install --no-cache-dir \
-    torch==2.8.0 \
-    torchvision==0.23.0 \
+    torch==2.5.1 \
+    torchvision==0.20.1 \
     --index-url https://download.pytorch.org/whl/cu121
 
-# Build flash_attn from source (matches torch + CUDA)
+# Build flash_attn from source (matches torch + CUDA 12.1)
 RUN pip install --no-cache-dir flash-attn --no-build-isolation
 
 # SkyReels-V3 core dependencies
@@ -36,7 +34,7 @@ RUN pip install --no-cache-dir \
     huggingface_hub \
     imageio \
     imageio-ffmpeg \
-    "numpy==1.26.4" \
+    "numpy>=1.23.5,<2" \
     einops \
     easydict \
     ftfy \
@@ -44,7 +42,7 @@ RUN pip install --no-cache-dir \
     opencv-python-headless \
     kornia \
     omegaconf \
-    torchao==0.10.0 \
+    torchao \
     pyloudnorm \
     librosa \
     moviepy==2.2.1
